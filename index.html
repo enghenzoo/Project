@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Principles of Design Project</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div class="header">
+          <div class="description">
+            <h1 class="title">Principles of Design Project</h1>
+            <h2 class="subtitle">by section 3</h2>
+          </div>
+        </div>
+        <div class="main-content">
+          <div class="description">
+            <p>
+              This project represents a theatre shaped mood board that showcases
+              all the exercises we've attempted while learning this subject. We
+              were required to represent these exercises within the theme of
+              <strong>"Helwan University"</strong> so we chose to express the
+              theme through the variety of majors present at Helwan.
+            </p>
+          </div>
+
+          <div class="card-stack">
+            <div class="card" style="--i: 0"></div>
+            <div class="card" style="--i: 1"></div>
+            <div class="card" style="--i: 2"></div>
+            <div class="card" style="--i: 3"></div>
+          </div>
+        </div>
+
+        <div class="project-credits">
+          <h2 class="project-title">This project was made by section 3's:</h2>
+          <p class="project-subtitle">(Press to reveal the creators)</p>
+
+          <div class="theatre-masks">
+            <span class="mask">🎭</span>
+          </div>
+
+          <div class="team-grid" id="teamGrid" style="display: none">
+            <div class="team-member">Jomana Hani</div>
+            <div class="team-member">Jana Ahmed</div>
+            <div class="team-member">Ahmed Alaa</div>
+            <div class="team-member">Jana Amr</div>
+            <div class="team-member">Jomana Alaa</div>
+            <div class="team-member">Jana Tamer</div>
+            <div class="team-member">Ahmed Hassam</div>
+            <div class="team-member">Rahaf</div>
+            <div class="team-member">Jana Akmal</div>
+            <div class="team-member">Ahmed Soliman</div>
+            <div class="team-member">Ahmed Abdelrahim</div>
+            <div class="team-member">Ahmed Hossam</div>
+            <div class="team-member">Toka Mohammed</div>
+            <div class="team-member">Jowayria</div>
+            <div class="team-member">Jana Wael</div>
+            <div class="team-member">Ganna</div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <section class="behind-the-scenes">
+      <h2>Behind the Scenes</h2>
+      <div class="behind-scenes"></div>
+    </section>
+    <script>
+      // Add interactive hover effects to team members
+      document.querySelectorAll(".team-member").forEach((member) => {
+        member.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-5px) scale(1.05)";
+        });
+
+        member.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0) scale(1)";
+        });
+      });
+
+      // Add floating animation to masks and toggle team names
+      const masks = document.querySelectorAll(".mask");
+      const teamGrid = document.getElementById("teamGrid");
+      let isTeamVisible = false;
+
+      masks.forEach((mask, index) => {
+        mask.addEventListener("click", function () {
+          // Mask animation
+          this.style.transform = "scale(1.5) rotate(360deg)";
+          setTimeout(() => {
+            this.style.transform = "";
+          }, 600);
+
+          // Toggle team names visibility
+          if (!isTeamVisible) {
+            teamGrid.style.display = "grid";
+            setTimeout(() => {
+              teamGrid.classList.add("show");
+            }, 10);
+            isTeamVisible = true;
+          } else {
+            teamGrid.classList.remove("show");
+            teamGrid.classList.add("hide");
+            setTimeout(() => {
+              teamGrid.style.display = "none";
+              teamGrid.classList.remove("hide");
+            }, 500);
+            isTeamVisible = false;
+          }
+        });
+      });
+
+      // Dynamic z-index management for cards
+      const stack = document.querySelector(".card-stack");
+      const cards = Array.from(document.querySelectorAll(".card"));
+      let isAnimating = false; // ده هو القفل
+
+      setInterval(() => {
+        if (isAnimating) return; // لو في حركة شغالة، بلاش تبدأ جديدة
+        isAnimating = true;
+
+        const topCard = cards[0];
+
+        // Step 1: حركة يمين
+        topCard.style.transition = "transform 0.6s ease, z-index 0.6s ease";
+        topCard.style.transform = `rotate(-5deg) translateX(200px)`;
+
+        setTimeout(() => {
+          // Step 2: قلل الزيندكس قبل ما يرجع شمال
+          topCard.style.zIndex = 0;
+
+          // Step 3: رجوع شمال بأنيميشن
+          topCard.style.transform = `rotate(-5deg) translateX(0px)`;
+
+          setTimeout(() => {
+            // Step 4: شيل الترانزيشن مؤقتاً عشان تنقله مكانه بسرعة
+            stack.appendChild(topCard); // نزله آخر واحد
+
+            // Step 5: ارجع الترانزيشن لكل الكروت + إعادة ترتيبهم
+            requestAnimationFrame(() => {
+              topCard.style.transition =
+                "transform 0.6s ease, z-index 0.6s ease";
+              cards.push(cards.shift());
+
+              cards.forEach((card, i) => {
+                card.style.setProperty("--i", i);
+                card.style.zIndex = 10 - i;
+                card.style.transform = `rotate(${-5 * i}deg) translateX(0px)`;
+              });
+
+              // فك القفل بعد ما كل حاجة تخلص
+              isAnimating = false;
+            });
+          }, 600); // بعد الرجوع شمال
+        }, 600); // بعد الحركة يمين
+      }, 3000); // كل 3 ثواني
+    </script>
+  </body>
+</html>
