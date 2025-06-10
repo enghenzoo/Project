@@ -39,7 +39,7 @@
           <p class="project-subtitle">(Press to reveal the creators)</p>
 
           <div class="theatre-masks">
-            <span class="mask">🎭</span>
+            <img src="mask.png" alt="" class="mask" />
           </div>
 
           <div class="team-grid" id="teamGrid" style="display: none">
@@ -65,9 +65,20 @@
     </main>
     <section class="behind-the-scenes">
       <h2>Behind the Scenes</h2>
-      <div class="behind-scenes"></div>
+      <div class="behind-scenes">
+        <h2>Video</h2>
+      </div>
     </section>
     <script>
+      // remove curtain animation on page load
+      const leftcurtain = document.querySelector(".left-curtain");
+      const rightcurtain = document.querySelector(".right-curtain");
+      leftcurtain.addEventListener("animationend", function () {
+        this.style.display = "none";
+      });
+      rightcurtain.addEventListener("animationend", function () {
+        this.style.display = "none";
+      });
       // Add interactive hover effects to team members
       document.querySelectorAll(".team-member").forEach((member) => {
         member.addEventListener("mouseenter", function () {
