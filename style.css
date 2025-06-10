@@ -229,6 +229,7 @@ main {
     transform: translateY(-10px) rotate(2deg);
   }
 }
+
 .behind-the-scenes {
   background-color: #000;
   padding: 10%;
@@ -239,6 +240,7 @@ main {
   align-items: center;
   gap: 20px;
   border-top: purple 5px solid;
+  overflow-y: hidden;
 }
 
 .behind-scenes {
@@ -260,6 +262,30 @@ main {
   color: #fff;
   margin-bottom: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  animation: rotate 10s linear infinite;
+  transform: rotate(0deg);
+}
+
+.img-container img {
+  width: 50%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes fadeIn {
