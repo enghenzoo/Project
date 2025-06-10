@@ -100,7 +100,7 @@
       let isBackgroundChanged = false;
 
       const originalBackground = 'url("theater.jpg")';
-      const newBackground = 'url("theater_names.png")';
+      const newBackground = 'url("theater2.png")';
 
       masks.forEach((mask, index) => {
         mask.addEventListener("click", function () {
@@ -127,6 +127,51 @@
           }, 800);
         });
       });
+      // Dynamic z-index management for cards
+      const stack = document.querySelector(".card-stack");
+      const cards = Array.from(document.querySelectorAll(".card"));
+      let isAnimating = false; // ده هو القفل
+
+      setInterval(() => {
+        if (isAnimating) return; // لو في حركة شغالة، بلاش تبدأ جديدة
+        isAnimating = true;
+
+        const topCard = cards[0];
+
+        // Step 1: حركة يمين
+        topCard.style.transition = "transform 0.6s ease, z-index 0.6s ease";
+        topCard.style.transform = `rotate(-5deg) translateX(200px)`;
+
+        setTimeout(() => {
+          // Step 2: قلل الزيندكس قبل ما يرجع شمال
+          topCard.style.zIndex = 0;
+
+          // Step 3: رجوع شمال بأنيميشن
+          topCard.style.transform = `rotate(-5deg) translateX(0px)`;
+
+          setTimeout(() => {
+            // Step 4: شيل الترانزيشن مؤقتاً عشان تنقله مكانه بسرعة
+            stack.appendChild(topCard); // نزله آخر واحد
+
+            // Step 5: ارجع الترانزيشن لكل الكروت + إعادة ترتيبهم
+            requestAnimationFrame(() => {
+              topCard.style.transition =
+                "transform 0.6s ease, z-index 0.6s ease";
+              cards.push(cards.shift());
+
+              cards.forEach((card, i) => {
+                card.style.setProperty("--i", i);
+                card.style.zIndex = 10 - i;
+                card.style.transform = `rotate(${-5 * i}deg) translateX(0px)`;
+              });
+
+              // فك القفل بعد ما كل حاجة تخلص
+              isAnimating = false;
+            });
+          }, 600); // بعد الرجوع شمال
+        }, 600); // بعد الحركة يمين
+      }, 3000); // كل 3 ثواني
+      // Typing effect for the description paragraph
       const paragraph = document.querySelector(".description p");
 
       const fullHTML = `This project represents a theatre shaped mood board that showcases

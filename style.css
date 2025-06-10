@@ -94,38 +94,6 @@ main {
     transform: translateX(-100%);
   }
 }
-@keyframes left-open {
-  from {
-    transform: translateX(0); /* كانت في النص */
-  }
-  to {
-    transform: translateX(-100%); /* تخرج بره */
-  }
-}
-@keyframes right-open {
-  from {
-    transform: translateX(0); /* كانت في النص */
-  }
-  to {
-    transform: translateX(100%); /* تخرج بره */
-  }
-}
-@keyframes left-close {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-@keyframes right-close {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
 strong {
   color: #d4af37;
 }
@@ -346,7 +314,7 @@ strong {
     gap: 15px;
   }
   .description {
-    min-height: 350px;
+    min-height: 380px;
   }
 }
 @media (min-width: 800px) {
