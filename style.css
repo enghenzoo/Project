@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: "Arial", sans-serif;
+  font-family: "Alumni Sans SC", sans-serif;
   background: linear-gradient(135deg, #2c1810 0%, #1a0f0a 100%);
   overflow-x: hidden;
   min-height: 100vh;
@@ -46,6 +46,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 10%;
 }
 
 .description {
@@ -60,7 +61,6 @@ main {
   /* backdrop-filter: blur(10px); */
   /* border: 2px solid rgba(139, 69, 19, 0.3); */
   max-width: 60%;
-  min-height: 700px;
 }
 .right-curtain {
   position: fixed;
@@ -94,7 +94,39 @@ main {
     transform: translateX(-100%);
   }
 }
-.description strong {
+@keyframes left-open {
+  from {
+    transform: translateX(0); /* كانت في النص */
+  }
+  to {
+    transform: translateX(-100%); /* تخرج بره */
+  }
+}
+@keyframes right-open {
+  from {
+    transform: translateX(0); /* كانت في النص */
+  }
+  to {
+    transform: translateX(100%); /* تخرج بره */
+  }
+}
+@keyframes left-close {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes right-close {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+strong {
   color: #d4af37;
 }
 .description p {
@@ -276,8 +308,6 @@ main {
 .img-container img {
   width: 50%;
   height: auto;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 @keyframes rotate {
   from {
@@ -296,10 +326,9 @@ main {
 @media (max-width: 768px) {
   .title {
     font-size: 1.2rem;
-    margin-bottom: 5px;
   }
   .subtitle {
-    margin-bottom: 5px;
+    font-size: 0.7rem;
   }
   .mask {
     margin-bottom: 150px;
@@ -309,17 +338,31 @@ main {
     height: 250px;
   }
   .description p {
-    font-size: 1rem;
+    font-size: 0.8rem;
     line-height: 1.6;
   }
   .team-grid {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 15px;
   }
+  .description {
+    min-height: 350px;
+  }
 }
 @media (min-width: 800px) {
   .description {
     max-width: 75%;
+    min-height: 450px;
+  }
+  .title {
+    font-size: 3rem;
+  }
+  .subtitle {
+    font-size: 1.2rem;
+  }
+  .description p {
+    font-size: 1.7rem;
+    line-height: 1.5;
   }
   .right-curtain,
   .left-curtain {
@@ -342,5 +385,14 @@ main {
   .team-grid {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 20px;
+  }
+  .project-title {
+    font-size: 2.5rem;
+  }
+  .project-subtitle {
+    font-size: 1.2rem;
+  }
+  h2 {
+    font-size: 4rem;
   }
 }
