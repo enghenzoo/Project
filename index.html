@@ -8,15 +8,15 @@
   </head>
   <body>
     <main>
+      <div class="curtains">
+        <img src="right.png" alt="" class="left-curtain" />
+        <img src="right.png" alt="" class="right-curtain" />
+      </div>
       <div class="container">
-        <div class="header">
+        <div class="main-content">
           <div class="description">
             <h1 class="title">Principles of Design Project</h1>
             <h2 class="subtitle">by section 3</h2>
-          </div>
-        </div>
-        <div class="main-content">
-          <div class="description">
             <p>
               This project represents a theatre shaped mood board that showcases
               all the exercises we've attempted while learning this subject. We
@@ -155,6 +155,76 @@
           }, 600); // بعد الرجوع شمال
         }, 600); // بعد الحركة يمين
       }, 3000); // كل 3 ثواني
+      const paragraph = document.querySelector(".description p");
+
+      const fullHTML = `
+    This project represents a theatre shaped mood board that showcases
+    all the exercises we've attempted while learning this subject. We
+    were required to represent these exercises within the theme of
+    <strong>"Helwan University"</strong> so we chose to express the
+    theme through the variety of majors present at Helwan.
+  `;
+
+      // نحول النص إلى عناصر فردية مع المحافظة على الـ <strong>
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(`<p>${fullHTML}</p>`, "text/html");
+      const parsedNodes = Array.from(doc.body.firstChild.childNodes);
+
+      paragraph.innerHTML = ""; // تفريغ المحتوى
+
+      let cursor = document.createElement("span");
+      cursor.id = "cursor";
+      paragraph.appendChild(cursor);
+
+      let currentNodeIndex = 0;
+      let currentCharIndex = 0;
+      let typingSpeed = 20;
+
+      function typeNextChar() {
+        if (currentNodeIndex >= parsedNodes.length) {
+          cursor.remove();
+          return;
+        }
+
+        const node = parsedNodes[currentNodeIndex];
+
+        if (node.nodeType === Node.TEXT_NODE) {
+          if (currentCharIndex < node.textContent.length) {
+            paragraph.insertBefore(
+              document.createTextNode(
+                node.textContent.charAt(currentCharIndex)
+              ),
+              cursor
+            );
+            currentCharIndex++;
+            setTimeout(typeNextChar, typingSpeed);
+          } else {
+            currentNodeIndex++;
+            currentCharIndex = 0;
+            setTimeout(typeNextChar, typingSpeed);
+          }
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          const clone = node.cloneNode();
+          const content = node.textContent;
+          let innerIndex = 0;
+
+          function typeElementText() {
+            if (innerIndex < content.length) {
+              clone.append(content.charAt(innerIndex));
+              innerIndex++;
+              paragraph.insertBefore(clone, cursor);
+              setTimeout(typeElementText, typingSpeed);
+            } else {
+              currentNodeIndex++;
+              setTimeout(typeNextChar, typingSpeed);
+            }
+          }
+
+          typeElementText();
+        }
+      }
+
+      typeNextChar();
     </script>
   </body>
 </html>
