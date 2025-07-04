@@ -175,9 +175,28 @@
       const stack = document.querySelector(".card-stack");
       const cards = Array.from(document.querySelectorAll(".card"));
       let isAnimating = false; // ده هو القفل
+      let cardAnimationActive = true; // متغير جديد للتحكم في الكارد animation
 
-      setInterval(() => {
-        if (isAnimating) return; // لو في حركة شغالة، بلاش تبدأ جديدة
+      // دالة للتحكم في الكارد animation حسب الـ scroll
+      function handleScroll() {
+        const behindSection = document.querySelector('.behind-the-scenes');
+        const behindSectionTop = behindSection.offsetTop;
+        const scrollPosition = window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        
+        // لو البهايند ذا سينس سيكشن ظاهر، هوقف الكارد animation
+        if (scrollPosition + windowHeight > behindSectionTop) {
+          cardAnimationActive = false;
+        } else {
+          cardAnimationActive = true;
+        }
+      }
+
+      // ضيف scroll listener
+      window.addEventListener('scroll', handleScroll);
+
+      const cardInterval = setInterval(() => {
+        if (isAnimating || !cardAnimationActive) return; // هنا ضفت الشرط الجديد
         isAnimating = true;
 
         const topCard = cards[0];
@@ -215,6 +234,7 @@
           }, 600); // بعد الرجوع شمال
         }, 600); // بعد الحركة يمين
       }, 3000); // كل 3 ثواني
+
       // Typing effect for the description paragraph
       const paragraph = document.querySelector(".description p");
 
