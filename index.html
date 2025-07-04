@@ -15,8 +15,8 @@
   <body>
     <main class="main">
       <div class="curtains">
-        <img src="right.png" alt="" class="left-curtain" />
-        <img src="right.png" alt="" class="right-curtain" />
+        <img src="right.webp" alt="" class="left-curtain" />
+        <img src="right.webp" alt="" class="right-curtain" />
       </div>
       <div class="container">
         <div class="main-content">
@@ -41,7 +41,7 @@
               class="card"
               style="
                 --i: 0;
-                background-image: url(Project.jpg);
+                background-image: url(0.webp);
                 background-size: cover;
                 background-position: center;
               "
@@ -50,7 +50,7 @@
               class="card"
               style="
                 --i: 1;
-                background-image: url(IMG-20250704-WA0011.jpg);
+                background-image: url(1.webp);
                 background-size: cover;
                 background-position: center;
               "
@@ -59,7 +59,7 @@
               class="card"
               style="
                 --i: 2;
-                background-image: url(IMG-20250704-WA0012.jpg);
+                background-image: url(2.webp);
                 background-size: cover;
                 background-position: center;
               "
@@ -68,7 +68,34 @@
               class="card"
               style="
                 --i: 3;
-                background-image: url(IMG-20250704-WA0013.jpg);
+                background-image: url(3.webp);
+                background-size: cover;
+                background-position: center;
+              "
+            ></div>
+            <div
+              class="card"
+              style="
+                --i: 4;
+                background-image: url(4.webp);
+                background-size: cover;
+                background-position: center;
+              "
+            ></div>
+            <div
+              class="card"
+              style="
+                --i: 5;
+                background-image: url(5.webp);
+                background-size: cover;
+                background-position: center;
+              "
+            ></div>
+            <div
+              class="card"
+              style="
+                --i: 6;
+                background-image: url(6.webp);
                 background-size: cover;
                 background-position: center;
               "
@@ -83,7 +110,7 @@
           <p class="project-subtitle">(Press to reveal the creators)</p>
 
           <div class="theatre-masks">
-            <img src="mask.png" alt="" class="mask" />
+            <img src="mask.webp" alt="" class="mask" />
           </div>
 
           <!-- <div class="team-grid" id="teamGrid" style="display: none">
@@ -125,7 +152,7 @@
         </video>
       </div>
       <div class="img-container">
-        <img src="design.png" alt="" class="design" />
+        <img src="design.webp" alt="" class="design" />
       </div>
     </section>
     <script>
@@ -143,16 +170,16 @@
       const main = document.querySelector("main");
       let isBackgroundChanged = false;
 
-      const originalBackground = 'url("theater.jpg")';
-      const newBackground = 'url("theater2.png")';
+      const originalBackground = 'url("theater.webp")';
+      const newBackground = 'url("theater2.webp")';
 
       masks.forEach((mask, index) => {
         mask.addEventListener("click", function () {
           // Mask animation
-          this.style.transform = "scale(1.5) rotate(360deg)";
-          setTimeout(() => {
-            this.style.transform = "";
-          }, 600);
+          // this.style.transform = "scale(1.5) rotate(360deg)";
+          // setTimeout(() => {
+          //   this.style.transform = "";
+          // }, 600);
 
           // Background image fade effect
           main.style.transition = "opacity 0.8s ease-in-out";
@@ -179,11 +206,11 @@
 
       // دالة للتحكم في الكارد animation حسب الـ scroll
       function handleScroll() {
-        const behindSection = document.querySelector('.behind-the-scenes');
+        const behindSection = document.querySelector(".behind-the-scenes");
         const behindSectionTop = behindSection.offsetTop;
         const scrollPosition = window.pageYOffset;
         const windowHeight = window.innerHeight;
-        
+
         // لو البهايند ذا سينس سيكشن ظاهر، هوقف الكارد animation
         if (scrollPosition + windowHeight > behindSectionTop) {
           cardAnimationActive = false;
@@ -193,7 +220,7 @@
       }
 
       // ضيف scroll listener
-      window.addEventListener('scroll', handleScroll);
+      window.addEventListener("scroll", handleScroll);
 
       const cardInterval = setInterval(() => {
         if (isAnimating || !cardAnimationActive) return; // هنا ضفت الشرط الجديد
