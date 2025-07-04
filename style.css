@@ -15,6 +15,7 @@ main {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  overflow-x: hidden;
 }
 
 .container {
@@ -214,7 +215,7 @@ strong {
   height: 100%;
   font-size: 3rem;
   filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.5));
-  /* animation: maskFloat 3s ease-in-out infinite alternate; */
+  animation: maskFloat 3s ease-in-out infinite alternate;
 }
 
 .mask:nth-child(2) {
